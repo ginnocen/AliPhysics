@@ -1,5 +1,3 @@
-/* Copyright(c) 1998-2008, ALICE Experiment at CERN, All rights reserved. *
- * See cxx source for full Copyright notice                               */
 
 /* $Id$ */
 
@@ -117,6 +115,7 @@ TTree* AliHFTreeHandlerLctopKpi::BuildTree(TString name, TString title)
 //________________________________________________________________
 bool AliHFTreeHandlerLctopKpi::SetVariables(int runnumber, unsigned int eventID, float ptgen, AliAODRecoDecayHF* cand, float bfield, int masshypo, AliPIDResponse *pidrespo)
 {
+  std::cout<<"starting set var"<<std::endl;
   if(!cand) return false;
   if(fFillOnlySignal) { //if fill only signal and not signal candidate, do not store
     if(!(fCandType&kSignal)) return true;
@@ -140,13 +139,15 @@ bool AliHFTreeHandlerLctopKpi::SetVariables(int runnumber, unsigned int eventID,
   fDCA=cand->GetDCA();
   fNormd0MeasMinusExp=ComputeMaxd0MeasMinusExp(cand,bfield);
   fSumImpParProngs=cand->Getd0Prong(0)*cand->Getd0Prong(0)+cand->Getd0Prong(1)*cand->Getd0Prong(1)+cand->Getd0Prong(2)*cand->Getd0Prong(2);
-  
+
   //Lc -> pKpi variables
   if(masshypo==1){ //pKpi
     fInvMass=((AliAODRecoDecayHF3Prong*)cand)->InvMassLcpKpi();
+    std::cout<<"step0pkpi"<<fInvMass<<"-"<<fPt<<std::endl;    
   }
   else if(masshypo==2){ //piKp
     fInvMass=((AliAODRecoDecayHF3Prong*)cand)->InvMassLcpiKp();
+    std::cout<<"step0pikp"<<fInvMass<<"-"<<fPt<<std::endl;    
   }
   else return false;
   fSigmaVertex=((AliAODRecoDecayHF3Prong*)cand)->GetSigmaVert();
@@ -163,12 +164,18 @@ bool AliHFTreeHandlerLctopKpi::SetVariables(int runnumber, unsigned int eventID,
   bool setsingletrack = SetSingleTrackVars(prongtracks);  
   if(!setsingletrack) return false;
 
+  std::cout<<"step1"<<fInvMass<<std::endl; 
+  std::cout<<"fCandType1"<<fCandType<<std::endl;
   //pid variables
   if(fPidOpt==kNoPID) return true;
 
+  std::cout<<"step2"<<fInvMass<<std::endl; 
+   std::cout<<"fCandType2"<<fCandType<<std::endl; 
   bool setpid = SetPidVars(prongtracks,pidrespo,true,true,true,true,true);
   if(!setpid) return false;
-
+  std::cout<<"step3"<<fInvMass<<std::endl; 
+  std::cout<<"ending set var"<<std::endl;
+  std::cout<<"fCandType3"<<fCandType<<std::endl;
   return true;
 }
 
