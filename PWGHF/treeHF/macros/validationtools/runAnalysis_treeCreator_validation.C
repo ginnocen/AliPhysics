@@ -55,7 +55,7 @@ void runAnalysis_treeCreator_validation(Bool_t isRunOnMC=kFALSE)
   Bool_t local = runLocal;
   gInterpreter->ProcessLine(".include $ROOTSYS/include");
   gInterpreter->ProcessLine(".include $ALICE_ROOT/include");
-  
+  gInterpreter->ProcessLine(".include $ALICE_PHYSICS/include");
   // create the analysis manager
   AliAnalysisManager *mgr = new AliAnalysisManager("AnalysisTaskExample");
   AliAODInputHandler *aodH = new AliAODInputHandler();
@@ -69,9 +69,11 @@ void runAnalysis_treeCreator_validation(Bool_t isRunOnMC=kFALSE)
     //multSel->SetAlternateOADBforEstimators("LHC15o-DefaultMC-HIJING");
     multSel->SetAlternateOADBFullManualBypassMC("$ALICE_PHYSICS/OADB/COMMON/MULTIPLICITY/data/OADB-LHC18q-DefaultMC-HIJING.root");
   }
-  
+  //AliMultSelectionTask *multSel = reinterpret_cast<AliMultSelectionTask *>(gInterpreter->ProcessLine(Form(".x %s", gSystem->ExpandPathName("$ALICE_PHYSICS/OADB/COMMON/MULTIPLICITY/macros/AddTaskMultSelection.C")))); 
+  //AliAnalysisTaskSED0Mass *taskD0 = reinterpret_cast<AliAnalysisTaskSED0Mass *>(gInterpreter->ProcessLine(Form(".x %s (%d,%d,%d,%d,%d,%d,%d,%d,\"%s\",\"%s\",\"%s\")",gSystem->ExpandPathName("$ALICE_PHYSICS/PWGHF/vertexingHF/macros/AddTaskD0Mass.C"),0,isRunOnMC,kFALSE,kFALSE,0,0,0,0,"_010",cutFile.Data(),"D0toKpiAnalysisCuts")));
+  //AliAnalysisTaskSECleanupVertexingHF *taskclean = reinterpret_cast<AliAnalysisTaskSECleanupVertexingHF*>(gInterpreter->ProcessLine(Form(".x %s",gSystem->ExpandPathName("$ALICE_PHYSICS/PWGHF/vertexingHF/macros/AddTaskCleanupVertexingHF.C"))));
+
   AliAnalysisTaskSEHFTreeCreator *task = reinterpret_cast<AliAnalysisTaskSEHFTreeCreator*>(gInterpreter->ProcessLine(Form(".x %s (%d,%d,\"%s\",\"%s\", %d,%d,%d,%d,%d,%d,%d,%d,%d)",gSystem->ExpandPathName("$ALICE_PHYSICS/PWGHF/treeHF/macros/AddTaskHFTreeCreator.C"),isRunOnMC, 1, "HFTreeCreator", cutFile.Data(), 1, kTRUE, kTRUE,kTRUE,kFALSE,kFALSE,kFALSE,kFALSE,kFALSE)));
-  
   if(System==kPbPb) {
     AliAnalysisTaskSECleanupVertexingHF *taskclean =reinterpret_cast<AliAnalysisTaskSECleanupVertexingHF *>(gInterpreter->ProcessLine(Form(".x %s", gSystem->ExpandPathName("$ALICE_PHYSICS/PWGHF/vertexingHF/macros/AddTaskCleanupVertexingHF.C"))));
   }
