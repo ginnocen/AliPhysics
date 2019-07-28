@@ -289,7 +289,6 @@ Int_t AliRDHFCutsLctopKpi::IsSelected(TObject* obj,Int_t selectionLevel,AliAODEv
     if(!AreDaughtersSelected(d,aod)) return 0;
   }
 
-
   // PID selection
   if(selectionLevel==AliRDHFCuts::kAll ||
      selectionLevel==AliRDHFCuts::kCandidate|| 
@@ -297,6 +296,7 @@ Int_t AliRDHFCutsLctopKpi::IsSelected(TObject* obj,Int_t selectionLevel,AliAODEv
     switch (fPIDStrategy) {
     case kNSigma:
       returnvaluePID = IsSelectedPID(d);
+      std::cout<<"RETURN PID"<<returnvaluePID<<std::endl;
       break;
     case kNSigmaMin:
       returnvaluePID = IsSelectedPID(d);
