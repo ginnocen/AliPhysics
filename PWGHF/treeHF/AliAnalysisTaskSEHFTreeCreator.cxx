@@ -1133,7 +1133,7 @@ void AliAnalysisTaskSEHFTreeCreator::UserExec(Option_t */*option*/)
 
 {
     /// Execute analysis for current event:
-    
+    std::cout<<"------------------------ New event --------------------"<<std::endl; 
     AliAODEvent *aod = dynamic_cast<AliAODEvent*> (InputEvent());
     
     fNentries->Fill(0); // all events
@@ -1239,6 +1239,7 @@ void AliAnalysisTaskSEHFTreeCreator::UserExec(Option_t */*option*/)
       Printf("AliAnalysisTaskSEHFTreeCreator::UserExec: differences in the event selection cuts same meson");
       return;
     }
+    std::cout<<"STEP0"<<std::endl;
     if((fWriteVariableTreeD0 && fWriteVariableTreeDs && (fFiltCutsD0toKpi->IsEventSelected(aod)!=fFiltCutsDstoKKpi->IsEventSelected(aod))) ||
         (fWriteVariableTreeD0 && fWriteVariableTreeDplus && (fFiltCutsD0toKpi->IsEventSelected(aod)!=fFiltCutsDplustoKpipi->IsEventSelected(aod))) ||
         (fWriteVariableTreeDs && fWriteVariableTreeDplus && (fFiltCutsDstoKKpi->IsEventSelected(aod)!=fFiltCutsDplustoKpipi->IsEventSelected(aod))) ||
@@ -1267,7 +1268,7 @@ void AliAnalysisTaskSEHFTreeCreator::UserExec(Option_t */*option*/)
     
     fCounter->StoreEvent(aod,fEvSelectionCuts,fReadMC);
     Bool_t isEvSel=fEvSelectionCuts->IsEventSelected(aod);
-
+    std::cout<<"STEP1"<<std::endl;
     if(fEvSelectionCuts->IsEventRejectedDueToTrigger())fNentries->Fill(5);
     if(fEvSelectionCuts->IsEventRejectedDueToNotRecoVertex())fNentries->Fill(6);
     if(fEvSelectionCuts->IsEventRejectedDueToVertexContributors())fNentries->Fill(7);
@@ -1318,6 +1319,8 @@ void AliAnalysisTaskSEHFTreeCreator::UserExec(Option_t */*option*/)
     fzVtxReco = vtx->GetZ();
     fNtracks = aod->GetNumberOfTracks();
     fIsEvRej = fEvSelectionCuts->GetEventRejectionBitMap();
+    std::cout<<((fIsEvRej>>0)&0x1)<<std::endl;
+    std::cout<<((fIsEvRej>>6)&0x1)<<std::endl;
     fRunNumber=aod->GetRunNumber();
     //n tracklets
     AliAODTracklets* tracklets=aod->GetTracklets();
