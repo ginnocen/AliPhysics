@@ -2221,10 +2221,10 @@ void AliAnalysisTaskSEHFTreeCreator::Process3Prong(TClonesArray *array3Prong, Al
             isLctopKpitagged=kFALSE;
         }
         if(isLctopKpitagged && fWriteVariableTreeLctopKpi){
-            Int_t filtered    = fFiltCutsLctopKpi->IsSelected(lctopkpi,AliRDHFCuts::kAll,aod);
-            Int_t optimal    = fCutsLctopKpi->IsSelected(lctopkpi,AliRDHFCuts::kAll,aod);
-	    if (filtered>0 and optimal<=0) {std::cout<<"GOOD ordering"<<std::endl;}
-	    else {std::cout<<"bad ordering"<<std::endl;}
+            //Int_t filtered    = fFiltCutsLctopKpi->IsSelected(lctopkpi,AliRDHFCuts::kAll,aod);
+            //Int_t optimal    = fCutsLctopKpi->IsSelected(lctopkpi,AliRDHFCuts::kAll,aod);
+	    //if (filtered>0 and optimal<=0) {std::cout<<"GOOD ordering"<<std::endl;}
+	    //else {std::cout<<"bad ordering"<<std::endl;}
 	    nFilteredLctopKpi++;
             fNentries->Fill(22);
             if((vHF->FillRecoCand(aod,lctopkpi))) {////Fill the data members of the candidate only if they are empty.
