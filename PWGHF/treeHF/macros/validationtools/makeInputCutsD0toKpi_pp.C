@@ -41,15 +41,21 @@ AliRDHFCutsD0toKpi* makeInputCutsD0toKpi_pp(TString nameCuts="D0toKpiValCuts")
   
   const Int_t nvars=11;
   
-  const Int_t nptbins=1;
+  const Int_t nptbins=4;
   Float_t* ptbins;
   ptbins=new Float_t[nptbins+1];
-  ptbins[0]=1.;
-  ptbins[1]=10.;
+  ptbins[0]=1;
+  ptbins[1]=999;
+  ptbins[2]=1000;
+  ptbins[3]=1001;
+  ptbins[4]=1002;
   
   //m    dca      cost*  ptk ptpi  d0k          d0pi       d0d0          cosp  cosxy normdxy
   Float_t cutsMatrixD0toKpiStand[nptbins][nvars]=  
-    {{0.400,300.*1E-4, 0.8, 0.7, 0.7, 1000.*1E-4, 1000.*1E-4, -8000. *1E-8, 0.85,  0.,0.}};
+    {{0.400,300.*1E-4, 0.8, 0.4, 0.4, 1000.*1E-4, 1000.*1E-4, -2500.*1E-8, 0.80,  0.,0.},
+	    {0.400,300.*1E-4, 0.8, 0.4, 0.4, 1000.*1E-4, 1000.*1E-4, -2500.*1E-8, 0.80,  0.,0.},
+	    {0.400,300.*1E-4, 0.8, 0.4, 0.4, 1000.*1E-4, 1000.*1E-4, -2500.*1E-8, 0.80,  0.,0.},
+	    {0.400,300.*1E-4, 0.8, 0.4, 0.4, 1000.*1E-4, 1000.*1E-4, -2500.*1E-8, 0.80,  0.,0.}};
   
   //CREATE TRANSPOSE MATRIX...REVERSE INDICES as required by AliRDHFCuts
   Float_t **cutsMatrixTransposeStand=new Float_t*[nvars];

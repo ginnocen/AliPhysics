@@ -1134,7 +1134,6 @@ void AliAnalysisTaskSEHFTreeCreator::UserExec(Option_t */*option*/)
 {
     /// Execute analysis for current event:
     AliAODEvent *aod = dynamic_cast<AliAODEvent*> (InputEvent());
-    std::cout<<"----------"<<std::endl;
   AliAODVertex *vtx2 = (AliAODVertex*)aod->GetPrimaryVertex();
 //if(vtx2->GetZ()<-0.489 || vtx2->GetZ()> -0.488) return;
     

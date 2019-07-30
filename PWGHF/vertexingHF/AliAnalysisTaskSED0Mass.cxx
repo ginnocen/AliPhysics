@@ -1387,8 +1387,6 @@ void AliAnalysisTaskSED0Mass::UserExec(Option_t */*option*/)
       Int_t ptbin=fCuts->PtBin(d->Pt());
       if(ptbin==-1) {fNentries->Fill(4); continue;} //out of bounds
       fIsSelectedCandidate=fCuts->IsSelected(d,AliRDHFCuts::kAll,aod); //selected
-
-
       if(fFillVarHists) {
         //if(!fCutOnDistr || (fCutOnDistr && fIsSelectedCandidate)) {
         fDaughterTracks.AddAt((AliAODTrack*)d->GetDaughter(0),0);
@@ -2249,6 +2247,12 @@ void AliAnalysisTaskSED0Mass::FillMassHists(AliAODRecoDecayHF2Prong *part, TClon
 
   Double_t invmassD0 = part->InvMassD0(), invmassD0bar = part->InvMassD0bar();
   //printf("SELECTED\n");
+  if ((fIsSelectedCandidate==1 || fIsSelectedCandidate==3)){
+  std::cout<<invmassD0<<std::endl;
+  }
+  if ((fIsSelectedCandidate>1)){
+  std::cout<<invmassD0bar<<std::endl;
+  }
   Int_t ptbin=cuts->PtBin(part->Pt());
   Double_t pt = part->Pt();
   Double_t y = part->YD0();

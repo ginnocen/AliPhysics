@@ -81,7 +81,6 @@ void runAnalysis_treeCreator_validation(Bool_t isRunOnMC=kFALSE)
   if(!mgr->InitAnalysis()) return;
   mgr->SetDebugLevel(2);
   mgr->PrintStatus();
-  mgr->SetUseProgressBar(1, 25);
      
   // if you want to run locally, we need to define some input
   TChain* chainAOD = new TChain("aodTree");
@@ -89,5 +88,6 @@ void runAnalysis_treeCreator_validation(Bool_t isRunOnMC=kFALSE)
   chainAOD->Add(Form("%s/AliAOD.root",pathToLocalAODfiles.Data()));
   chainAODfriend->Add(Form("%s/AliAOD.VertexingHF.root",pathToLocalAODfiles.Data()));
   chainAOD->AddFriend(chainAODfriend);
-  mgr->StartAnalysis("local", chainAOD, 1000, 0);
+  mgr->SetUseProgressBar(1, 100000000);
+  mgr->StartAnalysis("local", chainAOD);
 }
