@@ -47,7 +47,7 @@ void runAnalysis_treeCreator_validation(Bool_t isRunOnMC=kFALSE)
     std::cout<<"Running on MC"<<std::endl;
   }
   if (isRunOnMC == kFALSE){
-    pathToLocalAODfiles = "001";
+    pathToLocalAODfiles = "/data2/validationAOD/001";
     gridDataDir="/alice/data/2018/LHC18f";
     System=kpp;
     std::cout<<"Running on data"<<std::endl;
@@ -70,8 +70,8 @@ void runAnalysis_treeCreator_validation(Bool_t isRunOnMC=kFALSE)
     multSel->SetAlternateOADBFullManualBypassMC("$ALICE_PHYSICS/OADB/COMMON/MULTIPLICITY/data/OADB-LHC18q-DefaultMC-HIJING.root");
   }
   //AliMultSelectionTask *multSel = reinterpret_cast<AliMultSelectionTask *>(gInterpreter->ProcessLine(Form(".x %s", gSystem->ExpandPathName("$ALICE_PHYSICS/OADB/COMMON/MULTIPLICITY/macros/AddTaskMultSelection.C")))); 
-  //AliAnalysisTaskSED0Mass *taskD0 = reinterpret_cast<AliAnalysisTaskSED0Mass *>(gInterpreter->ProcessLine(Form(".x %s (%d,%d,%d,%d,%d,%d,%d,%d,\"%s\",\"%s\",\"%s\")",gSystem->ExpandPathName("$ALICE_PHYSICS/PWGHF/vertexingHF/macros/AddTaskD0Mass.C"),0,isRunOnMC,kFALSE,kFALSE,0,0,0,0,"_010",cutFile.Data(),"D0toKpiAnalysisCuts")));
-  //AliAnalysisTaskSECleanupVertexingHF *taskclean = reinterpret_cast<AliAnalysisTaskSECleanupVertexingHF*>(gInterpreter->ProcessLine(Form(".x %s",gSystem->ExpandPathName("$ALICE_PHYSICS/PWGHF/vertexingHF/macros/AddTaskCleanupVertexingHF.C"))));
+  AliAnalysisTaskSED0Mass *taskD0 = reinterpret_cast<AliAnalysisTaskSED0Mass *>(gInterpreter->ProcessLine(Form(".x %s (%d,%d,%d,%d,%d,%d,%d,%d,\"%s\",\"%s\",\"%s\")",gSystem->ExpandPathName("$ALICE_PHYSICS/PWGHF/vertexingHF/macros/AddTaskD0Mass.C"),0,isRunOnMC,kFALSE,kFALSE,0,0,0,0,"_010",cutFile.Data(),"D0toKpiAnalysisCuts")));
+ // AliAnalysisTaskSECleanupVertexingHF *taskclean = reinterpret_cast<AliAnalysisTaskSECleanupVertexingHF*>(gInterpreter->ProcessLine(Form(".x %s",gSystem->ExpandPathName("$ALICE_PHYSICS/PWGHF/vertexingHF/macros/AddTaskCleanupVertexingHF.C"))));
 
   AliAnalysisTaskSEHFTreeCreator *task = reinterpret_cast<AliAnalysisTaskSEHFTreeCreator*>(gInterpreter->ProcessLine(Form(".x %s (%d,%d,\"%s\",\"%s\", %d,%d,%d,%d,%d,%d,%d,%d,%d)",gSystem->ExpandPathName("$ALICE_PHYSICS/PWGHF/treeHF/macros/AddTaskHFTreeCreator.C"),isRunOnMC, 1, "HFTreeCreator", cutFile.Data(), 1, kTRUE, kTRUE,kTRUE,kFALSE,kFALSE,kFALSE,kFALSE,kFALSE)));
   if(System==kPbPb) {
